@@ -13,14 +13,18 @@ const MovieType = new GraphQLObjectType({
 
 const Query = new GraphQLObjectType({
   name: "Query",
-  movie: {
-    type: MovieType,
-    args: {
-      id: {
-        type: GraphQLString,
+  fields: {
+    movie: {
+      type: MovieType,
+      args: {
+        id: {
+          type: GraphQLString,
+        },
       },
     },
-    resolve(parent, args) {},
+  },
+  resolve(parent, args) {
+    return {};
   },
 });
 
