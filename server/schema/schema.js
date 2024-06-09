@@ -6,6 +6,7 @@ const {
   GraphQLSchema,
   GraphQLID,
   GraphQLInt,
+  GraphQLList,
 } = graphql;
 
 const movies = [
@@ -53,7 +54,7 @@ const DirectorType = new GraphQLObjectType({
     name: { type: GraphQLString },
     age: { type: GraphQLInt },
     movies: {
-      type: new graphql.GraphQLList(MovieType),
+      type: new GraphQLList(MovieType),
       resolve(parent, args) {
         return movies.filter((movie) => movie.directorId == parent.id);
       },
@@ -76,6 +77,18 @@ const Query = new GraphQLObjectType({
       args: { id: { type: GraphQLID } },
       resolve(parent, args) {
         return directors.find((director) => director.id == args.id);
+      },
+    },
+    movies: {
+      type: new GraphQLList(MovieType),
+      resolve(parent, args) {
+        return movies;
+      },
+    },
+    directors: {
+      type: new GraphQLList(DirectorType),
+      resolve(parent, args) {
+        return directors;
       },
     },
   },
