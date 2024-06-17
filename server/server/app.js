@@ -7,8 +7,8 @@ const app = express();
 const PORT = 3005;
 
 mongoose.connect(
-  "mongodb+srv://yakovgapotchenko:K7EkYmETGt1h4txD@cluster0.ahxma2b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=graphql-tutorial"
-  // { useMongoClient: true }
+  "mongodb+srv://yakovgapotchenko:K7EkYmETGt1h4txD@cluster0.ahxma2b.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&dbName=graphql-tutorial",
+  { useNewUrlParser: true }
 );
 
 app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));

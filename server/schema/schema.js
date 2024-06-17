@@ -110,13 +110,31 @@ const Mutation = new GraphQLObjectType({
         genre: { type: GraphQLString },
         directorId: { type: GraphQLID },
       },
-      resolve(parrent, args) {
+      resolve(parent, args) {
         const movie = new Movies({
           name: args.name,
           genre: args.genre,
           directorId: args.directorId,
         });
         return movie.save();
+      },
+    },
+    deleteDirector: {
+      type: DirectorType,
+      args: {
+        id: { type: GraphQLID },
+      },
+      resolve(parent, args) {
+        return Directors.findByIdAndDelete(args.id);
+      },
+    },
+    deleteMovie: {
+      type: MovieType,
+      args: {
+        id: { type: GraphQLID },
+      },
+      resolve(parent, args) {
+        return Movies.findByIdAndDelete(args.id);
       },
     },
   },
