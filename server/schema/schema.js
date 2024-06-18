@@ -12,6 +12,7 @@ const {
   GraphQLInt,
   GraphQLList,
   GraphQLNonNull,
+  GraphQLBoolean,
 } = graphql;
 
 /*
@@ -61,6 +62,8 @@ const MovieType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: new GraphQLNonNull(GraphQLString) },
     genre: { type: new GraphQLNonNull(GraphQLString) },
+    watched: { type: new GraphQLNonNull(GraphQLBoolean) },
+    rate: { type: GraphQLInt },
     director: {
       type: DirectorType,
       resolve(parent, args) {
@@ -110,12 +113,16 @@ const Mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
         directorId: { type: GraphQLID },
+        watched: { type: new GraphQLNonNull(GraphQLBoolean) },
+        rate: { type: GraphQLInt },
       },
       resolve(parent, args) {
         const movie = new Movies({
           name: args.name,
           genre: args.genre,
           directorId: args.directorId,
+          watched: args.watched,
+          rate: args.rate,
         });
         return movie.save();
       },
@@ -162,6 +169,8 @@ const Mutation = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         genre: { type: new GraphQLNonNull(GraphQLString) },
         directorId: { type: GraphQLID },
+        watched: { type: new GraphQLNonNull(GraphQLBoolean) },
+        rate: { type: GraphQLInt },
       },
       resolve(parent, args) {
         return Movies.findByIdAndUpdate(
@@ -171,6 +180,8 @@ const Mutation = new GraphQLObjectType({
               name: args.name,
               genre: args.genre,
               directorId: args.directorId,
+              watched: args.watched,
+              rate: args.rate,
             },
           },
           { new: true }

@@ -12,9 +12,9 @@ mongoose.connect(
   { useNewUrlParser: true }
 );
 
-app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
-
 app.use(cors());
+
+app.use("/graphql", graphqlHTTP({ schema, graphiql: true }));
 
 const dbConnection = mongoose.connection;
 dbConnection.on("error", (err) => console.log(`Connection error: ${err}`));
