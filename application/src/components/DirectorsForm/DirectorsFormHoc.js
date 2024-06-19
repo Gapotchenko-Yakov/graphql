@@ -27,4 +27,6 @@ const withGraphqlUpdate = graphql(updateDirectorMutation, {
   }),
 });
 
-export default compose(withStyles(styles), withGraphqlAdd, withGraphqlUpdate);
+const withGraphql = compose(withGraphqlAdd, withGraphqlUpdate);
+
+export default compose(withStyles(styles), withGraphql);

@@ -27,9 +27,10 @@ const withGraphqlUpdate = graphql(updateMovieMutation, {
   }),
 });
 
+const withGraphql = compose(withGraphqlAdd, withGraphqlUpdate);
+
 export default compose(
   withStyles(styles),
-  withGraphqlAdd,
-  withGraphqlUpdate,
+  withGraphql,
   graphql(directorsQuery)
 );
