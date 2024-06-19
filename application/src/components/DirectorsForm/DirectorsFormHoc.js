@@ -4,7 +4,7 @@ import { compose } from "recompose";
 import { styles } from "./styles";
 import { graphql } from "react-apollo";
 
-import { addDirectorMutation } from "./mutations";
+import { addDirectorMutation, updateDirectorMutation } from "./mutations";
 import { directorsQuery } from "../DirectorsTable/queries";
 
 const withGraphqlAdd = graphql(addDirectorMutation, {
@@ -17,4 +17,14 @@ const withGraphqlAdd = graphql(addDirectorMutation, {
   }),
 });
 
-export default compose(withStyles(styles), withGraphqlAdd);
+const withGraphqlUpdate = graphql(updateDirectorMutation, {
+  props: ({ mutate }) => ({
+    updateDirector: (director) =>
+      mutate({
+        variables: director,
+        refetchQueries: [{ query: directorsQuery }],
+      }),
+  }),
+});
+
+export default compose(withStyles(styles), withGraphqlAdd, withGraphqlUpdate);
