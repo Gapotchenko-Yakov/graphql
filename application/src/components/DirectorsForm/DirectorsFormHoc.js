@@ -12,7 +12,7 @@ const withGraphqlAdd = graphql(addDirectorMutation, {
     addDirector: (director) =>
       mutate({
         variables: director,
-        refetchQueries: [{ query: directorsQuery }],
+        refetchQueries: [{ query: directorsQuery, variables: { name: "" } }],
       }),
   }),
 });
@@ -22,7 +22,7 @@ const withGraphqlUpdate = graphql(updateDirectorMutation, {
     updateDirector: (director) =>
       mutate({
         variables: director,
-        refetchQueries: [{ query: directorsQuery }],
+        refetchQueries: [{ query: directorsQuery, variables: { name: "" } }],
       }),
   }),
 });
