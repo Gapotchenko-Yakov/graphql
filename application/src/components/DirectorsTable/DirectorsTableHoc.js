@@ -5,4 +5,10 @@ import { styles } from "./styles";
 import { graphql } from "react-apollo";
 import { directorsQuery } from "./queries";
 
-export default compose(withStyles(styles), graphql(directorsQuery));
+const withGraphql = graphql(directorsQuery, {
+  options: ({ name = "" }) => ({
+    variables: { name },
+  }),
+});
+
+export default compose(withStyles(styles), withGraphql);

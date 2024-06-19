@@ -13,28 +13,30 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import CreateIcon from "@material-ui/icons/Create";
 
 import DirectorsDialog from "../DirectorsDialog/DirectorsDialog";
-
+import DirectorsSearch from "../DirectorsSearch/DirectorsSearch";
 import withHocs from "./DirectorsTableHoc";
-
-const directors = [
-  {
-    id: 1,
-    name: "Quentin Tarantino",
-    age: 55,
-    movies: [{ name: "Movie 1" }, { name: "Movie 2" }],
-  },
-  {
-    id: 2,
-    name: "Guy Ritchie",
-    age: 50,
-    movies: [{ name: "Movie 1" }, { name: "Movie 2" }],
-  },
-];
 
 class DirectorsTable extends React.Component {
   state = {
     anchorEl: null,
     openDialog: false,
+    name: "",
+  };
+
+  handleChange = (name) => (event) => {
+    this.setState({ [name]: event.target.value });
+  };
+
+  handleSearch = (e) => {
+    const { data } = this.props;
+    const { name } = this.state;
+
+    if ((e.charCode = 13)) {
+      data.fetchMore({
+        variables: { name },
+        updateQuery: (previousResult, { fetchMoreResult }) => fetchMoreResult,
+      });
+    }
   };
 
   handleDialogOpen = () => {
@@ -72,6 +74,13 @@ class DirectorsTable extends React.Component {
 
     return (
       <>
+        <Paper>
+          <DirectorsSearch
+            name={this.name}
+            handleChange={this.handleChange}
+            handleSearch={this.handleSearch}
+          />
+        </Paper>
         <DirectorsDialog
           open={openDialog}
           handleClose={this.handleDialogClose}
